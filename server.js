@@ -1,5 +1,4 @@
 const express = require('express');
-
 const postsRouter = require("./routers/postsRouter");
 const categoryRouter = require('./routers/categoryRouter');
 const tagRouter = require('./routers/tagRouter');
@@ -8,6 +7,9 @@ const authRouter = require('./routers/authRouter')
 const app = express();
 
 const port = 3000;
+
+// abilitiamo cors
+app.use(cors());
 
 app.use(express.json());
 

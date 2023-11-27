@@ -3,7 +3,10 @@ const prisma = new PrismaClient();
 //const { matchedData } = require("express-validator");
 const bcrypt = require("bcrypt");
 const jsonwebtoken = require("jsonwebtoken");
+const AuthError = require('../exception/AuthError')
 
+
+//registrazione
 async function register(req, res){
     //Estraggo i dati validati dal middleware checkValidity
     //scartando qualsiasi altra chiave non prevista
@@ -36,8 +39,8 @@ async function register(req, res){
     res.json({user, token})
 }
 
-
-async function login(req, res){
+//login
+async function login(req, res, next){
     //recupero i dati inseriti dall'utente
     const {email, password} = req.body
 
@@ -50,6 +53,11 @@ async function login(req, res){
 
     //controllare che la password sia corretta
     const passMatch = await bcrypt.compare(password, user.password)
+
+    if (!passMatch) {
+        return next(new AuthError("Password errata"));
+      }
+
     const token = jsonwebtoken.sign(user, process.env.JWT_SECRET, {
         expiresIn: "2h"
     })
