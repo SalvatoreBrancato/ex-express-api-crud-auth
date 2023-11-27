@@ -36,6 +36,33 @@ async function register(req, res){
     res.json({user, token})
 }
 
+
+async function login(req, res){
+    //recupero i dati inseriti dall'utente
+    const {email, password} = req.body
+
+    //controllo che ci sia l'utente con quella email
+    const user = await prisma.user.findUnique({
+        where : {
+            email
+        }
+    });
+
+    //controllare che la password sia corretta
+    const passMatch = await bcrypt.compare(password, user.password)
+    const token = jsonwebtoken.sign(user, process.env.JWT_SECRET, {
+        expiresIn: "2h"
+    })
+
+    //rimuovo la password dall'oggetto che restituisco (non dal database) per evitare di restituirla in chiaro
+    delete user.password
+    
+    res.json({user, token})
+}
+
+
+
 module.exports = {
-    register
+    register,
+    login
 }

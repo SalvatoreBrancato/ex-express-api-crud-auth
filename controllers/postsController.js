@@ -58,18 +58,9 @@ async function showAll(req, res){
     
     if(filtroPublished == "true"){
         const data = await prisma.post.findMany({
-            where: {
+            where:{
                 published: true
-            },
-            include: {
-                category: {
-                    select:{
-                        name : true
-                    }
-                },
-                tags: true
             }
-
         })
         return res.json(data)
     }
@@ -91,7 +82,18 @@ async function showAll(req, res){
     }
 
     //nessun filtro
-    const data = await prisma.post.findMany();
+    const data = await prisma.post.findMany({
+        include: {
+            category: {
+                select:{
+                    name : true
+                }
+            },
+            tags: true
+        }
+
+    })
+    
 
     return res.json(data)
 }
