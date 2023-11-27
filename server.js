@@ -3,6 +3,8 @@ const postsRouter = require("./routers/postsRouter");
 const categoryRouter = require('./routers/categoryRouter');
 const tagRouter = require('./routers/tagRouter');
 const authRouter = require('./routers/authRouter')
+const cors = require("cors");
+
 
 const app = express();
 
