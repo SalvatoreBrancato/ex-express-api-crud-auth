@@ -4,7 +4,7 @@ const postsController = require('../controllers/postsController');
 const authHandler = require('../middlewares/authHandler')
 
 
-router.post('/post', authHandler, postsController.create)
+router.post('/post', postsController.create)
 router.get('/post', postsController.showAll)
 //filtrare per:
 // Post pubblicati.

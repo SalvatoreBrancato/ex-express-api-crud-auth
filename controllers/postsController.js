@@ -13,6 +13,7 @@ async function create(req, res){
             content: datiInIngresso.content,  
             published: datiInIngresso.published,
             categoryId: datiInIngresso.categoryId,
+            userId: datiInIngresso.userId,
             tags: {
                 connect: datiInIngresso.tags.map((elem)=>{
                     return {id: elem}
