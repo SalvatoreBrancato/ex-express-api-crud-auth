@@ -90,7 +90,11 @@ async function showAll(req, res){
                     name : true
                 }
             },
-            tags: true
+            tags:{
+                select:{
+                    name: true
+                }
+            } 
         }
 
     })
