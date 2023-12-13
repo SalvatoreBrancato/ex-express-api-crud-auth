@@ -4,7 +4,7 @@ const postsController = require('../controllers/postsController');
 const authHandler = require('../middlewares/authHandler')
 
 
-router.post('/post', postsController.create)//ho tolto autHeandler dalla rotta per accede con vue senza login
+router.post('/post', authHandler, postsController.create)
 router.get('/post', postsController.showAll)
 //filtrare per:
 // Post pubblicati.
